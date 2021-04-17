@@ -1,0 +1,22 @@
+# Define X and y
+from sklearn import tree
+from sklearn.model_selection import train_test_split
+y = drugs_df['DAST_CAT']
+X = drugs_df[['TRAM_USE_CAT', 'OXY_USE_CAT', 'FENT_USE_CAT', 'BUP_USE_CAT', 'METH_USE_CAT', 'MORPH_USE_CAT',
+       'TAP_USE_CAT', 'SUF_USE_CAT', 'COD_USE_CAT', 'DIHY_USE_CAT', 'HYDM_USE_CAT', 'STIM_USE_CAT',
+       'BENZ_USE_CAT']]
+       
+# split training and test set
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.4, random_state=42)
+
+# Train the decision tree
+clf = tree.DecisionTreeClassifier()
+clf = clf.fit(X_train, y_train)
+
+# Calculate the accuracy for the training set
+X_train_predict = clf.predict(X_train)
+sum(y_train == X_train_predict)/len(X_train)
+
+# Calculate the accuracy for the test set
+X_test_predict = clf.predict(X_test)
+sum(y_test == X_test_predict)/len(X_test)
